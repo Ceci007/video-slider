@@ -1,6 +1,6 @@
   /* --- Variables (ADJUSTED FOR STABILITY & CENTER ALIGNMENT) --- */
   :root {
-    --slide-gap: 20px; 
+    --slide-gap: 60px; 
     --base-card-width: 280px; /* Increased base width for a larger card */
     --scale-active: 1.4;   /* 200 * 1.8 = 360px wide (Wider slide) */
     --scale-next: 1.1;     /* 200 * 1.1 = 220px wide */
@@ -40,7 +40,10 @@
     background-color: #1a1a1a; 
     position: relative; 
 }
-body { margin: 0; overflow: hidden; }
+
+body { 
+  margin: 0;
+}
 
 /* --- Global Navigation --- */
 .nav-header {
@@ -305,7 +308,8 @@ body { margin: 0; overflow: hidden; }
 /* --- Video Area (Relative Parent for Absolute Overlay) --- */
 .video-area {
     position: relative; /* Set to relative */
-    top: 0; left: 0;
+    top: 0; 
+    left: 0;
     width: 100%;
     height: var(--video-height); 
     overflow: hidden;
@@ -313,9 +317,14 @@ body { margin: 0; overflow: hidden; }
     background-size: cover;
     background-position: center;
 }
+
 .slide video { 
-    width: 100%; height: 100%; object-fit: cover; display: block; 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    display: block; 
     filter: brightness(0.8); 
+    position: absolute;
 }
 
 /* --- Slide Play Button --- */
@@ -337,6 +346,8 @@ body { margin: 0; overflow: hidden; }
     cursor: pointer;
     z-index: 10; 
     transition: background-color 0.2s, opacity 0.3s;
+    z-index: 100;
+    pointer-events: auto;
 }
 
 .slide-play-btn span img {
@@ -362,13 +373,16 @@ body { margin: 0; overflow: hidden; }
 /* Video Info Overlay (ABSOLUTE CHILD) */
 .video-info-overlay {
     position: absolute;
-    bottom: 0;
-    left: 0;
+    top: 15px;
+    left: 15px;
+    right: 15px;
+    display: flex;
+    justify-content: space-between;
+    z-index: 5; 
+    color: white;
     width: 100%;
     padding: 5px; 
     box-sizing: border-box;
-    color: white;
-    display: flex;
     flex-direction: column;
     gap: 5px;
     z-index: 4; 
@@ -495,10 +509,10 @@ body { margin: 0; overflow: hidden; }
 .book-btn:hover { background-color: #3b52e0; }
 
 #next-btn {
-  position: absolute;
+  position: sticky;
   top: 50%;
-  transform: translateY(-50%);   
-  right: 30px; /* Fallback/default position */
+  transform: translateY(-50%);  
+  left: calc(100% - 110px);
   border: none;
   width: 70px;
   height: 70px;
@@ -559,49 +573,6 @@ body { margin: 0; overflow: hidden; }
     width: 50px; 
 }
 
-
-/* Mobile/Tablet Responsiveness */
-@media (max-width: 1024px) {
-    #main-app-container { flex-direction: column; }
-    
-    #left-panel, #right-panel { 
-        width: 100% !important; 
-        height: 50% !important; 
-        padding: 30px;
-        padding-top: 70px; 
-        box-sizing: border-box;
-    }
-    
-    .video-slider-container {
-        /* Reset centering logic for mobile, use simple flex/margin */
-        top: 55%; 
-        transform: translateY(-50%); 
-        width: 100%; 
-        
-        --scale-active: 1.3; 
-        --scale-next: 1.1;
-        --base-card-width: 150px;
-        --slide-gap: 15px;
-    }
-    
-    .slider-track {
-        /* Center the entire track using margin auto and appropriate width */
-        width: calc(var(--scaled-active-width) + var(--slide-gap) + var(--visible-next-width));
-        margin: 0 auto; 
-        transform: translateX(0) !important; /* Disable JS translation */
-    }
-    
-    #next-btn { 
-        left: unset;
-        right: 5%; /* Keep button on the right edge */
-        width: 40px; height: 40px; font-size: 20px;
-    }
-    
-    .slider-lines {
-        transform: translateX(0) !important;
-    }
-}
-
 .positioning-swipe-indicator {
   position: absolute;
   left: 60%;
@@ -609,3 +580,174 @@ body { margin: 0; overflow: hidden; }
   transform: translateX(-50%);
   z-index: 300;
 }
+
+
+/* Mobile/Tablet Responsiveness */
+@media (max-width: 1024px) {
+    body {
+      overflow-y: scroll;
+      overflow-x: hidden;
+    }
+
+     /* Redefinición de Variables para Ancho Fijo de 300px */
+     :root {
+      --base-card-width: 280px; /* Reducido */
+      --scale-active: 1.5; /* Reducido: 160 * 1.5 = 240px */
+      --slide-gap: 60px; /* Reducido */
+      --scale-next: 1.1;
+      
+      /* Nuevos Cálculos para un Ancho Total de ~299px */
+      --scaled-active-width: calc(var(--base-card-width) * var(--scale-active)); /* 240px */
+      --scaled-next-width: calc(var(--base-card-width) * var(--scale-next)); /* 176px */
+      --visible-next-width: calc(var(--scaled-next-width) * 0.25); /* 44px */
+      /* Ancho total: 240 + 15 + 44 = 299px (ENCUESTA EN 300PX) */
+      --total-visible-width: calc(var(--scaled-active-width) + var(--slide-gap) + var(--visible-next-width)); 
+  }
+
+  .nav-header {
+      height: 60px;
+      padding: 0 20px;
+      /* En móvil, la barra de navegación debe ser de ancho completo y oscura */
+      background-color: #1a1a2e;
+  }
+  
+  /* En móvil, el pseudo-elemento no es necesario y debe desactivarse o ajustarse */
+  .nav-header::before {
+      content: none;
+  }
+
+  .app-layout {
+      flex-direction: column;
+      padding-top: 0; /* Ya que el nav-header tiene background, el app-layout no necesita padding */
+      min-height: auto;
+      height: auto;
+  }
+
+  #main-app-container {
+    display: flex;
+    height: auto;
+    flex-direction: column;
+  }
+  
+  #left-panel {
+      width: 100%;
+      height: 100vh; /* REQUERIMIENTO MÓVIL: 100vh */
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: 40px 20px;
+      text-align: center;
+      /* El centrado ya está definido en el estilo base */
+  }
+
+  .hero-content {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .hero-actions {
+    display: flex;
+    justify-content: center;
+  }
+
+  /* Centrado del Slider en el Panel Derecho (40%) */
+  #right-panel {
+      position: relative;
+      width: 100%; /* Panel Derecho ahora ocupa todo el ancho */
+      height: 800px; /* REQUERIMIENTO MÓVIL: 600px fijo */
+      display: flex;
+      justify-content: center; /* Centrado Horizontal */
+      align-items: center; /* Centrado Vertical */
+      padding: 20px; /* Padding vertical para no pegar a los bordes */
+  }
+
+  /* Slider Container (Aplicar Ancho Fijo y Deshabilitar Centrado de Escritorio) */
+  .video-slider-container {
+      position: relative; 
+      width: var(--total-visible-width); /* 299px, encaja en 300px */
+      max-width: 300px;
+      
+      /* DESHABILITAR LA LÓGICA DE CENTRADO ABSOLUTO DE ESCRITORIO */
+      left: initial;
+      top: initial;
+      transform: none !important; 
+  }
+  
+  /* Desplazamiento del Track a Cero (Para que el primer slide esté a la izquierda de la caja de 300px) */
+  .slider-track {
+      transform: translateX(-50%) !important; 
+  }
+
+  .swipe-indicator-container {
+      right: 20px;
+      bottom: 20px;
+  }
+  
+  .hero-text h1 {
+      font-size: 2.5rem;
+  }
+
+  .positioning-swipe-indicator {
+    display: none;
+  }
+
+  /* Botón Next: FIJO EN EL BORDE DERECHO DE LA TARJETA ACTIVA (Viewport) */
+  #next-btn {
+    left: 85%;
+  }
+
+  .slider-lines {
+    margin: 0 auto;
+    margin-top: 60px;
+    transform: translateX(-25%);
+  }
+}
+
+@media (max-width: 728px) {
+  :root {
+    --base-card-width: 230px;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  #left-panel {
+    width: 100%;
+    padding: 0;
+  }
+
+  .hero-content {
+    margin: 0 auto;
+  }
+
+  .hero-content h1 {
+    font-size: 28px;
+  }
+
+  .hero-content p {
+    font-size: 14px;
+  }
+
+  .gallery-link span,
+  .gold-btn span {
+    font-size: 14px;
+  }
+
+  .hero-actions {
+    margin: 0;
+    display: flex;
+    flex: 1;
+  }
+
+  .slider-track {
+    transform: translateX(-25%) !important; 
+  }
+
+  .slider-lines {
+    margin: 0 auto;
+    margin-top: 60px;
+    transform: translateX(-12.5%);
+  }
+}
+

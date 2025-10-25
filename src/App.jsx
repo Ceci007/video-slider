@@ -115,7 +115,7 @@ const App = () => {
     // Estas variables de CSS definen el tamaño del slide, deben coincidir con :root
     const BASE_CARD_WIDTH = 280; 
     const SCALE_ACTIVE = 1.4;
-    const SLIDE_GAP = 20;
+    const SLIDE_GAP = 60;
 
     if (!track || !panel) return;
 
@@ -137,13 +137,14 @@ const App = () => {
     setTrackTranslateX(requiredShift);
 
     // Ajustar la posición del botón de navegación también
+    /*
     const nextBtn = document.getElementById('next-btn');
     if (nextBtn) {
         // Posición del botón Next debe ser: requiredShift + scaledActiveWidth + SLIDE_GAP
         const nextBtnPosition = requiredShift + scaledActiveWidth + SLIDE_GAP - (nextBtn.offsetWidth / 2);
         nextBtn.style.left = `${nextBtnPosition}px`;
     }
-
+    */
   }, []);
 
 
@@ -374,8 +375,18 @@ const App = () => {
         </div>
 
         {/* --- Right Panel (40% Container for Slider/Video) --- */}
-        <div id="right-panel">
-            
+        <div id="right-panel"> 
+            {isSliderVisible && ( 
+              <button 
+                id="next-btn"
+                aria-label="Next Slide" 
+                onClick={handleNext}
+              >
+                <span className='next-btn-inner'>
+                  <img src="/assets/arrow-right-icon.png" alt="next slider button" />
+                </span>
+              </button>
+            )}
             {/* --- Background Video Player Wrapper --- */}
             <div 
               className="video-bg-player"
@@ -403,8 +414,10 @@ const App = () => {
               >
                 {isPlaying ? '❚❚' : '▶'}
               </button>
-            </div>
 
+               {/* Botón de Siguiente (zIndex alto) - Positioned with JS in calculateTrackOffset */}
+
+            </div>
 
             {/* --- Slider Toggle Button (Bottom Right) --- */}
             <button 
@@ -425,19 +438,6 @@ const App = () => {
               }}
             >
               
-              {/* Botón de Siguiente (zIndex alto) - Positioned with JS in calculateTrackOffset */}
-              {isSliderVisible && ( 
-                <button 
-                  id="next-btn"
-                  aria-label="Next Slide" 
-                  onClick={handleNext}
-                >
-                  <span className='next-btn-inner'>
-                    <img src="/assets/arrow-right-icon.png" alt="next slider button" />
-                  </span>
-                </button>
-              )}
-              
               {/* Apply the translation to the track itself for centering */}
               <div 
                 className="slider-track"
@@ -451,7 +451,7 @@ const App = () => {
                   return (
                     <div 
                       key={video.id} 
-                      className={getSlideClass(index)}
+                      className={`${getSlideClass(index)}`}
                       data-video-src={video.src}
                       onClick={() => {
                         // Allow navigation when clicking a non-active slide
@@ -466,6 +466,7 @@ const App = () => {
                         
                         {/* Rating and Location Overlay (Absolute Child) */}
                         {renderVideoOverlay(video)}
+
                         
                         {/* Play/Pause Button inside slide */}
                         <button 
@@ -492,8 +493,7 @@ const App = () => {
                   );
                 })}
               </div>
-              
-              
+
               {/* Navigation Lines */}
               <div className="slider-lines">
                 {VIDEO_DATA.map((_, index) => (
@@ -507,6 +507,7 @@ const App = () => {
               </div>
             </div>
         </div>
+        
         <div className='positioning-swipe-indicator'>
           <SwipeIndicator />
         </div>
