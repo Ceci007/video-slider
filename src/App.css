@@ -346,6 +346,7 @@ body {
     background-size: cover;
     background-position: center;
     border-radius: 20px 20px 0 0;
+    overflow: hidden;
 }
 
 .slide video { 
@@ -565,8 +566,8 @@ body {
 
 #next-btn {
   position: sticky;
-  top: 660px;
-  transform: translate(calc(100% + 5px), -50%);  
+  top: 50%;
+  transform: translate(calc(100% + 5px), 250%);  
   left: calc(100% + 70px);
   border: none;
   width: 70px;
@@ -726,7 +727,8 @@ body {
   }
 
   #next-btn {
-    top: 350px;
+    top: 50%;
+    transform: translate(calc(100% + 5px), -50%); 
   }
 
   .swipe-indicator-container {
