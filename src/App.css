@@ -1,25 +1,21 @@
   /* --- Variables (ADJUSTED FOR STABILITY & CENTER ALIGNMENT) --- */
   :root {
-    --slide-gap: 60px; 
-    --base-card-width: 280px; /* Increased base width for a larger card */
-    --scale-active: 1.4;   /* 200 * 1.8 = 360px wide (Wider slide) */
-    --scale-next: 1.1;     /* 200 * 1.1 = 220px wide */
+    --slide-gap: 80px; 
+    --base-card-width: 280px; 
+    --scale-active: 1.4;   
+    --scale-next: 1.1;     
     
-    --video-height: 250px;  /* Taller video area for better view */
-    --content-height: 120px; /* Smaller content area */
+    --video-height: 250px;  
+    --content-height: 120px; 
     
     --base-slide-height: calc(var(--video-height) + var(--content-height)); 
     --scaled-next-width: calc(var(--base-card-width) * var(--scale-next));
     --scaled-active-height: calc(var(--base-slide-height) * var(--scale-active));
     
-    /* Visible part of the next slide (e.g., 40%) */
+    
     --visible-next-width: calc(var(--scaled-next-width) * 0.4); 
-    /* Total width of the container needed to show Active + Gap + Visible part of Next */
     --total-visible-width: calc(var(--scaled-active-width) + var(--slide-gap) + var(--visible-next-width));
-    
     --nav-height: 100px; 
-    
-    /* The amount the next slide is pulled back to show only a partial view */
     --next-margin-compensation: calc(-1 * (var(--scaled-next-width) - var(--visible-next-width)));
 
     --text-color: #0C111F;
@@ -61,10 +57,32 @@ body {
     color: white;
     background: linear-gradient(to bottom, rgba(30, 30, 44, 0.8), rgba(30, 30, 44, 0));
 }
-.nav-logo { font-size: 1.2rem; font-weight: 700; }
-.nav-links { display: flex; gap: 30px; font-size: 0.9rem; opacity: 0.7; }
-.nav-links a, .nav-header button { text-decoration: none; color: inherit; cursor: pointer; transition: opacity 0.2s; }
-.nav-links a:hover { opacity: 1; }
+
+.nav-logo { 
+  font-size: 
+  1.2rem; 
+  font-weight: 700; 
+}
+
+.nav-links { 
+  display: flex; 
+  gap: 30px; 
+  font-size: 0.9rem; 
+  opacity: 0.7; 
+}
+
+.nav-links a, 
+.nav-header button { 
+  text-decoration: none; 
+  color: inherit; 
+  cursor: pointer; 
+  transition: opacity 0.2s; 
+}
+
+.nav-links a:hover { 
+  opacity: 1; 
+}
+
 .contact-btn {
     display: flex;
     width: 200px;
@@ -85,7 +103,7 @@ body {
   margin-top: 5px;
 }
 
-/* Left Panel */
+/* --- Left Panel --- */
 #left-panel {
     position: relative;
     width: 60%;
@@ -111,15 +129,22 @@ body {
   left: 0;
 }
 
-/* Hero Text Content */
-.hero-content { max-width: 80%; margin-top: -100px; }
+/* --- Hero Text Content --- */
+.hero-content { 
+  max-width: 80%; 
+  margin-top: -100px; 
+}
+
 .hero-content h1 { 
     font-size: 4rem; 
     line-height: 1.1; 
-    margin: 0 0 30px; 
     font-weight: 800;
 }
-.hero-content h1 span { color: #f8c046; }
+
+.hero-content h1 span { 
+  color: #f8c046; 
+}
+
 .hero-content p { 
     font-size: 1.1rem; 
     line-height: 1.6; 
@@ -176,13 +201,12 @@ body {
   border-radius: 50%;
 }
 
-/* Right Panel */
+/* --- Right Panel --- */
 #right-panel {
     position: relative; 
     width: 40%;
     height: 100%;
     overflow: hidden;
-    /* Removed shadow from background */
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.4)); 
     padding-top: var(--nav-height); 
     box-sizing: border-box;
@@ -197,7 +221,8 @@ body {
     height: 100%; 
     z-index: 1; 
 }
-/* Video element for background */
+
+/* --- Video element for background --- */
 #background-video {
     width: 100%; 
     height: 100%; 
@@ -205,7 +230,10 @@ body {
     opacity: 0.7; 
     transition: opacity 0.5s ease, filter 0.5s ease;
 }
-#background-video.video-playing { filter: blur(0px) brightness(1); }
+
+#background-video.video-playing { 
+  filter: blur(0px) brightness(1); 
+}
 
 
 /* --- Center Controls --- */
@@ -216,7 +244,11 @@ body {
     padding: 25px 35px; cursor: pointer; font-size: 36px; border-radius: 50%; 
     z-index: 5; backdrop-filter: blur(5px); transition: opacity 0.3s ease; 
 }
-#center-play-pause-btn.hidden-btn, #slider-toggle-btn.hidden-btn { opacity: 0; pointer-events: none; }
+
+#center-play-pause-btn.hidden-btn, #slider-toggle-btn.hidden-btn { 
+  opacity: 0; 
+  pointer-events: none; 
+}
 
 
 #slider-toggle-btn {
@@ -229,29 +261,27 @@ body {
 /* --- Slider Section (Centering Implementation) --- */
 .video-slider-container {
     position: absolute; 
-    /* Vertical centering */
     top: 50%; 
     transform: translateY(calc(-50% + var(--nav-height) / 2)); 
-    
-    /* Horizontal configuration: always occupy the full width of the right panel */
     width: 100%; 
     height: auto; 
     z-index: 2; 
     transition: opacity 0.4s ease-in-out; 
 }
 
-.video-slider-container.hidden-slider { opacity: 0; pointer-events: none; }
+.video-slider-container.hidden-slider { 
+  opacity: 0; 
+  pointer-events: none; 
+}
 
 .slider-track { 
     display: flex; 
     align-items: center; 
     gap: var(--slide-gap); 
     position: relative; 
-    transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1); /* Apply transition here */
+    transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1); 
     width: auto; 
     min-height: var(--scaled-active-height); 
-    
-    /* The track's translation is now handled by the JS/State: trackTranslateX */
 }
 
 /* --- Slide (The Card) --- */
@@ -267,14 +297,13 @@ body {
     cursor: pointer;
     z-index: 2; 
     background-color: white; 
-    
     transform-origin: 0% 50%;
     margin-left: 0; 
     margin-right: 0; 
     order: 10;
 }
 
-/* Slide Activo (WIDER) */
+/* --- Slide Activo (WIDER) --- */
 .slide.current { 
     opacity: 1; 
     z-index: 3; 
@@ -283,19 +312,18 @@ body {
     margin-left: 0; 
 }
 
-/* Slide Siguiente */
+/* --- Slide Siguiente --- */
 .slide.next { 
     opacity: 0.5; 
     z-index: 2; 
     cursor: pointer; 
     transform: scale(var(--scale-next)); 
     order: 2; 
-    margin-left: 130px; /* Add gap after the active card */
-    /* Pull back the unseen right side of the scaled card */
+    margin-left: var(--slide-gap); 
     margin-right: var(--next-margin-compensation); 
 }
 
-/* Hidden slides are collapsed */
+/* --- Hidden slides are collapsed --- */
 .slide.hidden { 
     opacity: 0; 
     pointer-events: none; 
@@ -307,7 +335,7 @@ body {
 
 /* --- Video Area (Relative Parent for Absolute Overlay) --- */
 .video-area {
-    position: relative; /* Set to relative */
+    position: relative; 
     top: 0; 
     left: 0;
     width: 100%;
@@ -358,19 +386,19 @@ body {
   filter: brightness(150%);
 }
 
-/* Hide the button when the slide is NOT current */
+/* --- Hide the button when the slide is NOT current --- */
 .slide-play-btn:disabled {
     opacity: 0;
     pointer-events: none;
 }
 
-/* When the slide is current, the button is fully visible regardless of isPlaying */
+/* --- When the slide is current, the button is fully visible regardless of isPlaying --- */
 .slide.current .slide-play-btn {
     opacity: 1;
     pointer-events: auto;
 }
 
-/* Video Info Overlay (ABSOLUTE CHILD) */
+/* --- Video Info Overlay (ABSOLUTE CHILD) --- */
 .video-info-overlay {
     position: absolute;
     top: 15px;
@@ -391,7 +419,7 @@ body {
 .video-card-positioning {
   position: relative;
   width: 100%;
-  height: 250px;
+  height: var(--video-height);
 }
 
 .rating-location {
@@ -454,7 +482,7 @@ body {
     gap: 8px; 
 }
 
-/* Text Content (Font size adjustments) */
+/* --- Text Content (Font size adjustments) --- */
 .text-content { 
   padding: 10px;
   color: #1e1e2c; 
@@ -462,20 +490,27 @@ body {
   display: flex; 
   flex-direction: column; 
 }
+
 .text-content .title { 
     font-size: 14px; 
     font-weight: 700; 
     margin: 0; 
 }
+
 .text-content .description { 
     font-size: 12px; 
     opacity: 0.7; 
     line-height: 1.2; 
     margin: 3px 0 5px 0; 
 }
-.read-more { color: var(--bg-purple-button-dark); cursor: pointer; font-weight: 300; }
 
-/* Price and Booking */
+.read-more { 
+  color: var(--bg-purple-button-dark); 
+  cursor: pointer; 
+  font-weight: 300; 
+}
+
+/* --- Price and Booking --- */
 .price-booking {
     display: flex; 
     justify-content: space-between; 
@@ -484,16 +519,27 @@ body {
     background: rgba(0, 0, 0, 0.1);
     padding: 10px;
 }
+
 .price-info {
   display: flex;
   flex-direction: column;
 }
-.price-info .label { font-size: 10px; opacity: 0.6; }
+
+.price-info .label { 
+  font-size: 10px; 
+  opacity: 0.6; 
+}
+
 .price-info .value { 
     font-size: 12px; 
     font-weight: 700; 
 }
-.price-info .unit { font-size: 10px; font-weight: 400; opacity: 0.8; }
+
+.price-info .unit { 
+  font-size: 10px; 
+  font-weight: 400; 
+  opacity: 0.8; 
+}
 
 .book-btn {
     background-image: linear-gradient(to right bottom, var(--bg-purple-button-light), var(--bg-purple-button-dark)); 
@@ -506,7 +552,10 @@ body {
     cursor: pointer;
     transition: background-color 0.2s;
 }
-.book-btn:hover { background-color: #3b52e0; }
+
+.book-btn:hover { 
+  background-color: #3b52e0; 
+}
 
 #next-btn {
   position: sticky;
@@ -527,7 +576,7 @@ body {
   z-index: 10; 
 }
 
-/* Navigation button (Adjusted position based on JS calculation) */
+/* --- Navigation button (Adjusted position based on JS calculation) --- */
 .next-btn-inner {
     background-image: linear-gradient(to right bottom, var(--bg-golden-button-light), var(--bg-golden-button-dark)); 
     width: 50px; 
@@ -535,7 +584,6 @@ body {
     border-radius: 50%;
     text-align: center;
     cursor: pointer;
-  
     box-shadow: 0 5px 15px rgba(255, 255, 255, 0.4);
     transition: left 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
@@ -544,18 +592,15 @@ body {
   margin-top: 5px;
 }
 
-/* Navigation Lines (Centered below the active card) */
+/* --- Navigation Lines (Centered below the active card) --- */
 .slider-lines {
     display: flex;
     gap: 15px;
     justify-content: center;
-    /* Match the width of the active card */
-    width: 300px; 
+    width: 300px;
     margin: 0 auto; 
     margin-top: 60px;
     margin-left: 50px;
-    
-    /* Apply the same track translation offset */
     transform: translateX(var(--track-translate-x)); 
     transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
 }
@@ -568,6 +613,7 @@ body {
     cursor: pointer;
     transition: background-color 0.3s, width 0.3s;
 }
+
 .line.active {
     background-color: white;
     width: 50px; 
@@ -582,43 +628,38 @@ body {
 }
 
 
-/* Mobile/Tablet Responsiveness */
+/* --- Mobile/Tablet Responsiveness ---- */
 @media (max-width: 1024px) {
     body {
       overflow-y: scroll;
       overflow-x: hidden;
     }
 
-     /* Redefinición de Variables para Ancho Fijo de 300px */
-     :root {
-      --base-card-width: 280px; /* Reducido */
-      --scale-active: 1.5; /* Reducido: 160 * 1.5 = 240px */
-      --slide-gap: 60px; /* Reducido */
+    :root {
+      --base-card-width: 280px; 
+      --scale-active: 1.5;
+      --slide-gap: 60px; 
       --scale-next: 1.1;
       
-      /* Nuevos Cálculos para un Ancho Total de ~299px */
-      --scaled-active-width: calc(var(--base-card-width) * var(--scale-active)); /* 240px */
-      --scaled-next-width: calc(var(--base-card-width) * var(--scale-next)); /* 176px */
-      --visible-next-width: calc(var(--scaled-next-width) * 0.25); /* 44px */
-      /* Ancho total: 240 + 15 + 44 = 299px (ENCUESTA EN 300PX) */
+      --scaled-active-width: calc(var(--base-card-width) * var(--scale-active)); 
+      --scaled-next-width: calc(var(--base-card-width) * var(--scale-next)); 
+      --visible-next-width: calc(var(--scaled-next-width) * 0.25);
       --total-visible-width: calc(var(--scaled-active-width) + var(--slide-gap) + var(--visible-next-width)); 
   }
 
   .nav-header {
       height: 60px;
       padding: 0 20px;
-      /* En móvil, la barra de navegación debe ser de ancho completo y oscura */
       background-color: #1a1a2e;
   }
-  
-  /* En móvil, el pseudo-elemento no es necesario y debe desactivarse o ajustarse */
+
   .nav-header::before {
       content: none;
   }
 
   .app-layout {
       flex-direction: column;
-      padding-top: 0; /* Ya que el nav-header tiene background, el app-layout no necesita padding */
+      padding-top: 0; 
       min-height: auto;
       height: auto;
   }
@@ -631,12 +672,11 @@ body {
   
   #left-panel {
       width: 100%;
-      height: 100vh; /* REQUERIMIENTO MÓVIL: 100vh */
+      height: 100vh; 
       min-height: 100vh;
       margin: 0 auto;
       padding: 40px 20px;
       text-align: center;
-      /* El centrado ya está definido en el estilo base */
   }
 
   .hero-content {
@@ -650,30 +690,31 @@ body {
     justify-content: center;
   }
 
-  /* Centrado del Slider en el Panel Derecho (40%) */
   #right-panel {
       position: relative;
-      width: 100%; /* Panel Derecho ahora ocupa todo el ancho */
-      height: 800px; /* REQUERIMIENTO MÓVIL: 600px fijo */
+      width: 100%; 
+      height: 800px;
       display: flex;
-      justify-content: center; /* Centrado Horizontal */
-      align-items: center; /* Centrado Vertical */
-      padding: 20px; /* Padding vertical para no pegar a los bordes */
+      justify-content: center;
+      align-items: center; 
+      padding: 20px;
   }
 
-  /* Slider Container (Aplicar Ancho Fijo y Deshabilitar Centrado de Escritorio) */
+  .slide.next {
+    margin-left: 100px;
+  }
+
+  /* --- Slider Container (Aplicar Ancho Fijo y Deshabilitar Centrado de Escritorio) --- */
   .video-slider-container {
       position: relative; 
-      width: var(--total-visible-width); /* 299px, encaja en 300px */
+      width: var(--total-visible-width); 
       max-width: 300px;
-      
-      /* DESHABILITAR LA LÓGICA DE CENTRADO ABSOLUTO DE ESCRITORIO */
       left: initial;
       top: initial;
       transform: none !important; 
   }
   
-  /* Desplazamiento del Track a Cero (Para que el primer slide esté a la izquierda de la caja de 300px) */
+  /* --- Desplazamiento del Track a Cero (Para que el primer slide esté a la izquierda de la caja de 300px) --- */
   .slider-track {
       transform: translateX(-50%) !important; 
   }
@@ -691,7 +732,6 @@ body {
     display: none;
   }
 
-  /* Botón Next: FIJO EN EL BORDE DERECHO DE LA TARJETA ACTIVA (Viewport) */
   #next-btn {
     left: 85%;
   }
@@ -722,7 +762,8 @@ body {
   }
 
   .hero-content h1 {
-    font-size: 28px;
+    font-size: 32px;
+    margin-bottom: 60px;
   }
 
   .hero-content p {
