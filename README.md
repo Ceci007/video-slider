@@ -2,7 +2,7 @@
 
 > This is a custom component, is a slider of background videos and the videos can be played and pause from the slider.
 
-![screenshot](./app_screenshot.png)
+![screenshot](./app_screeshot.png)
 
 ## Built With
 
