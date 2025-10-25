@@ -11,7 +11,7 @@
 
 ## Live Demo
 
-[Live Demo](https://resplendent-praline-6a0736.netlify.app/)
+[Live Demo](https://famous-muffin-4da8b4.netlify.app/)
 
 
 ## Getting Started
