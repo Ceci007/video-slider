@@ -272,17 +272,6 @@ const App = () => {
         </div>
 
         <div id="right-panel"> 
-            {isSliderVisible && ( 
-              <button 
-                id="next-btn"
-                aria-label="Next Slide" 
-                onClick={handleNext}
-              >
-                <span className='next-btn-inner'>
-                  <img src="/assets/arrow-right-icon.png" alt="next slider button" />
-                </span>
-              </button>
-            )}
             <div 
               className="video-bg-player"
               onMouseEnter={handleMouseActivity} 
@@ -345,6 +334,17 @@ const App = () => {
                         }
                       }}
                     >
+                       {isSliderVisible && ( 
+                          <button 
+                            id="next-btn"
+                            aria-label="Next Slide" 
+                            onClick={handleNext}
+                          >
+                            <span className='next-btn-inner'>
+                              <img src="/assets/arrow-right-icon.png" alt="next slider button" />
+                            </span>
+                          </button>
+                        )}
                       <div className="video-area">
                         <video src={video.src} muted loop /> 
                         {renderVideoOverlay(video)}
